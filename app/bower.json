@@ -1,0 +1,12 @@
+{
+  "name": "HelloIonic",
+  "private": "true",
+  "devDependencies": {
+    "angular": "1.4.8",
+    "ionic": "~1.1.1",
+    "angular-material": "~0.11.4"
+  },
+  "resolutions": {
+    "angular": ">= 1.0.8"
+  }
+}

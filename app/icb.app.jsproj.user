@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ShowAllFiles>false</ShowAllFiles>
+    <ReferenceCachePath>C:\Users\danie\AppData\Local\Temp\ezrnxbiq_icb_refcache</ReferenceCachePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Android'">
+    <DebuggerFlavor>AndroidEmulator</DebuggerFlavor>
+    <AndroidEmulatorID>AndroidDevice;Device</AndroidEmulatorID>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Windows Phone (Universal)'">
+    <DebuggerFlavor>WindowsMobileEmulator</DebuggerFlavor>
+    <WindowsMobileEmulatorID>184901A8-DC44-4CED-869E-DC7733D048D6;Emulator 8.1 WVGA 4 inch</WindowsMobileEmulatorID>
+  </PropertyGroup>
+</Project>
