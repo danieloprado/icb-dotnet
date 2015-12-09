@@ -1,31 +1,5 @@
 <ion-view view-title="Playlists">
     <ion-content>
-        <md-button class="md-raised md-primary">Primary</md-button>
-        <md-input-container>
-            <label>Title</label>
-            <input ng-model="user.title">
-        </md-input-container>
-        <md-radio-group ng-model="data.group1">
-            <md-radio-button value="Apple" class="md-primary">Apple</md-radio-button>
-            <md-radio-button value="Banana"> Banana </md-radio-button>
-            <md-radio-button value="Mango">Mango</md-radio-button>
-        </md-radio-group>
-        <md-input-container>
-            <label>State</label>
-            <md-select ng-model="ctrl.userState" ng-init="ctrl.states = ['teste', 'test 2']">
-                <md-option ng-repeat="state in ctrl.states" value="{{state}}">
-                    {{state}}
-                </md-option>
-            </md-select>
-        </md-input-container>
-
-        <md-slider flex min="0" max="255" ng-model="color.red" aria-label="red" id="red-slider" class></md-slider>
-
-
-        <md-switch ng-model="data.cb1" aria-label="Switch 1">
-            Switch 1: {{ data.cb1 }}
-        </md-switch>
-
         <ion-list>
             <ion-item ng-repeat="playlist in playlists" href="#/app/playlists/{{playlist.id}}">
                 {{playlist.title}}

@@ -7,6 +7,7 @@ Project("{262852C6-CD72-467D-83FE-5EEB1973A190}") = "icb.app", "icb.app.jsproj",
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "etc", "etc", "{8B7A6EB1-1AF0-469A-AACB-F4A7932FDB94}"
 	ProjectSection(SolutionItems) = preProject
+		..\.gitignore = ..\.gitignore
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
