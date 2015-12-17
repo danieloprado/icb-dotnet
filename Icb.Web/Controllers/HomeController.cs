@@ -1,26 +1,34 @@
-﻿using Icb.Domain.Entities;
-using Icb.Domain.Interfaces.Repositories;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
-using System.Web.Mvc;
+using Microsoft.AspNet.Mvc;
 
 namespace Icb.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IPersonRepository _personRepository;
-
-        public HomeController(IPersonRepository personRepository)
+        public IActionResult Index()
         {
-            _personRepository = personRepository;
+            return View();
         }
 
-        public async Task<ActionResult> Index()
+        public IActionResult About()
         {
-            var person = Person.Create("daniel");
-            await _personRepository.Insert(person);
+            ViewData["Message"] = "Your application description page.";
 
-            ViewBag.Title = "Home Page";
+            return View();
+        }
 
+        public IActionResult Contact()
+        {
+            ViewData["Message"] = "Your contact page.";
+
+            return View();
+        }
+
+        public IActionResult Error()
+        {
             return View();
         }
     }

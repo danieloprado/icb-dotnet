@@ -1,7 +1,12 @@
-﻿namespace Icb.Domain.Interfaces
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace Icb.Domain.Interfaces
 {
     public interface IEntity
     {
-        string Id { get; set; }
+        int Id { get; set; }
     }
 }
