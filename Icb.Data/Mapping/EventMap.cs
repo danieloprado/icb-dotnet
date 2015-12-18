@@ -3,39 +3,37 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Icb.Domain.Entities;
-using Icb.Domain.ValueObjects;
 using Microsoft.Data.Entity;
-using Microsoft.Data.Entity.Metadata.Builders;
 
 namespace Icb.Data.Mapping
 {
-    public class PersonMap
+    public class EventMap
     {
         public static void Map(ModelBuilder builder)
         {
-            var entity = builder.Entity<Person>();
+            var entity = builder.Entity<Event>();
 
             entity.HasKey(p => p.Id);
 
             entity.Property(p => p.Id)
                 .ValueGeneratedOnAdd();
 
-            //NAME
-            entity.Property(p => p.FirstName)
+            entity.Property(p => p.Title)
                 .IsRequired()
                 .HasMaxLength(100);
 
-            entity.Property(p => p.LastName)
+            entity.Property(p => p.Description)
                 .IsRequired()
-                .HasMaxLength(100);
+                .HasMaxLength(2000);
 
-            entity.Ignore(p => p.FullName);
+            entity.Property(p => p.Date)
+                .IsRequired();
 
-            //PROPS
-            entity.Property(p => p.Email)
-              .HasMaxLength(256);
+            //FK
+            entity.HasOne(p => p.Category)
+                  .WithMany(p=> p.Events)
+                  .IsRequired();
+            
         }
     }
-
-
 }

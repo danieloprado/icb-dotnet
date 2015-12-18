@@ -15,13 +15,13 @@ namespace Icb.Web.Controllers
     [Authorize]
     public class ManageController : Controller
     {
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
         private readonly ILogger _logger;
 
         public ManageController(
-        UserManager<ApplicationUser> userManager,
-        SignInManager<ApplicationUser> signInManager,
+        UserManager<User> userManager,
+        SignInManager<User> signInManager,
         ILoggerFactory loggerFactory)
         {
             _userManager = userManager;
@@ -330,7 +330,7 @@ namespace Icb.Web.Controllers
             Error
         }
 
-        private async Task<ApplicationUser> GetCurrentUserAsync()
+        private async Task<User> GetCurrentUserAsync()
         {
             return await _userManager.FindByIdAsync(HttpContext.User.GetUserId());
         }

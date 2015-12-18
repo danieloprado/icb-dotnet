@@ -8,7 +8,7 @@ using Icb.Data.Context;
 namespace Icb.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20151217124118_initial")]
+    [Migration("20151218113949_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -17,7 +17,121 @@ namespace Icb.Data.Migrations
                 .HasAnnotation("ProductVersion", "7.0.0-rc1-16348")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Icb.Domain.Entities.ApplicationUser", b =>
+            modelBuilder.Entity("Icb.Domain.Entities.Address", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Address1")
+                        .IsRequired()
+                        .HasAnnotation("MaxLength", 256);
+
+                    b.Property<string>("Address2")
+                        .IsRequired()
+                        .HasAnnotation("MaxLength", 100);
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasAnnotation("MaxLength", 256);
+
+                    b.Property<double?>("Latitude");
+
+                    b.Property<double?>("Longitude");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasAnnotation("MaxLength", 2);
+
+                    b.Property<string>("Zipcode")
+                        .IsRequired()
+                        .HasAnnotation("MaxLength", 8);
+
+                    b.HasKey("Id");
+                });
+
+            modelBuilder.Entity("Icb.Domain.Entities.Alert", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasAnnotation("MaxLength", 2000);
+
+                    b.Property<DateTime?>("EndDate");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasAnnotation("MaxLength", 256);
+
+                    b.Property<byte>("Type");
+
+                    b.HasKey("Id");
+                });
+
+            modelBuilder.Entity("Icb.Domain.Entities.Event", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("CategoryId")
+                        .IsRequired();
+
+                    b.Property<DateTime>("Date");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasAnnotation("MaxLength", 2000);
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasAnnotation("MaxLength", 100);
+
+                    b.HasKey("Id");
+                });
+
+            modelBuilder.Entity("Icb.Domain.Entities.EventCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<bool>("IsDeleted")
+                        .HasAnnotation("Relational:DefaultValue", "False")
+                        .HasAnnotation("Relational:DefaultValueType", "System.Boolean");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasAnnotation("MaxLength", 100);
+
+                    b.HasKey("Id");
+                });
+
+            modelBuilder.Entity("Icb.Domain.Entities.Person", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("AddressId");
+
+                    b.Property<DateTime>("CreatedDate");
+
+                    b.Property<string>("Email")
+                        .HasAnnotation("MaxLength", 256);
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasAnnotation("MaxLength", 100);
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasAnnotation("MaxLength", 100);
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+                });
+
+            modelBuilder.Entity("Icb.Domain.Entities.User", b =>
                 {
                     b.Property<string>("Id");
 
@@ -43,8 +157,6 @@ namespace Icb.Data.Migrations
 
                     b.Property<string>("PasswordHash");
 
-                    b.Property<int?>("PersonId");
-
                     b.Property<string>("PhoneNumber");
 
                     b.Property<bool>("PhoneNumberConfirmed");
@@ -65,44 +177,6 @@ namespace Icb.Data.Migrations
                         .HasAnnotation("Relational:Name", "UserNameIndex");
 
                     b.HasAnnotation("Relational:TableName", "AspNetUsers");
-                });
-
-            modelBuilder.Entity("Icb.Domain.Entities.Person", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Address1")
-                        .HasAnnotation("MaxLength", 256);
-
-                    b.Property<string>("Address2")
-                        .HasAnnotation("MaxLength", 100);
-
-                    b.Property<string>("City")
-                        .HasAnnotation("MaxLength", 256);
-
-                    b.Property<string>("Email")
-                        .HasAnnotation("MaxLength", 256);
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasAnnotation("MaxLength", 100);
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasAnnotation("MaxLength", 100);
-
-                    b.Property<double?>("Latitude");
-
-                    b.Property<double?>("Longitude");
-
-                    b.Property<string>("State")
-                        .HasAnnotation("MaxLength", 2);
-
-                    b.Property<string>("Zipcode")
-                        .HasAnnotation("MaxLength", 8);
-
-                    b.HasKey("Id");
                 });
 
             modelBuilder.Entity("Microsoft.AspNet.Identity.EntityFramework.IdentityRole", b =>
@@ -187,11 +261,22 @@ namespace Icb.Data.Migrations
                     b.HasAnnotation("Relational:TableName", "AspNetUserRoles");
                 });
 
-            modelBuilder.Entity("Icb.Domain.Entities.ApplicationUser", b =>
+            modelBuilder.Entity("Icb.Domain.Entities.Event", b =>
                 {
-                    b.HasOne("Icb.Domain.Entities.Person")
+                    b.HasOne("Icb.Domain.Entities.EventCategory")
                         .WithMany()
-                        .HasForeignKey("PersonId");
+                        .HasForeignKey("CategoryId");
+                });
+
+            modelBuilder.Entity("Icb.Domain.Entities.Person", b =>
+                {
+                    b.HasOne("Icb.Domain.Entities.Address")
+                        .WithMany()
+                        .HasForeignKey("AddressId");
+
+                    b.HasOne("Icb.Domain.Entities.User")
+                        .WithOne()
+                        .HasForeignKey("Icb.Domain.Entities.Person", "UserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNet.Identity.EntityFramework.IdentityRoleClaim<string>", b =>
@@ -203,14 +288,14 @@ namespace Icb.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNet.Identity.EntityFramework.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Icb.Domain.Entities.ApplicationUser")
+                    b.HasOne("Icb.Domain.Entities.User")
                         .WithMany()
                         .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNet.Identity.EntityFramework.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Icb.Domain.Entities.ApplicationUser")
+                    b.HasOne("Icb.Domain.Entities.User")
                         .WithMany()
                         .HasForeignKey("UserId");
                 });
@@ -221,7 +306,7 @@ namespace Icb.Data.Migrations
                         .WithMany()
                         .HasForeignKey("RoleId");
 
-                    b.HasOne("Icb.Domain.Entities.ApplicationUser")
+                    b.HasOne("Icb.Domain.Entities.User")
                         .WithMany()
                         .HasForeignKey("UserId");
                 });

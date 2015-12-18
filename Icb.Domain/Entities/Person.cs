@@ -1,4 +1,5 @@
-﻿using Icb.Domain.Interfaces;
+﻿using System;
+using Icb.Domain.Interfaces;
 using Icb.Domain.ValueObjects;
 
 namespace Icb.Domain.Entities
@@ -18,25 +19,18 @@ namespace Icb.Domain.Entities
         public string LastName { get; set; }
 
         public string FullName => $"{FirstName} {LastName}";
-
-        //ADDRESS
-        public string Address1 { get; set; }
-
-        public string Address2 { get; set; }
-
-        public string City { get; set; }
-
-        public string State { get; set; }
-
-        public string Zipcode { get; set; }
-
-        public double? Longitude { get; set; }
-
-        public double? Latitude { get; set; }
-
-        //PROPS
-        public string Email { get; set; }
         
+        public string Email { get; set; }
+
+        public DateTime CreatedDate { get; set; }
+
+
+        
+        //FKs
+        public User User { get; set; }
+
+        public Address Address { get; set; }
+
 
         //FACTORIES
         public static Person Create(string firstName, string lastName)

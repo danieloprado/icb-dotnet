@@ -44,7 +44,7 @@ namespace Icb.Web
                 .AddDbContext<ApplicationDbContext>(options =>
                     options.UseSqlServer(_configuration["Data:DefaultConnection:ConnectionString"]));
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
+            services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 

@@ -2,7 +2,7 @@
 
 namespace Icb.Domain.Entities
 {
-    public class ApplicationUser : IdentityUser
+    public class User : IdentityUser
     {
         public Person Person { get; set; }
     }
