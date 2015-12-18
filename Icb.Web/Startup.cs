@@ -55,7 +55,6 @@ namespace Icb.Web
             //services.AddTransient<ISmsSender, AuthMessageSender>();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddConsole(_configuration.GetSection("Logging"));
@@ -87,14 +86,9 @@ namespace Icb.Web
             }
 
             app.UseIISPlatformHandler(options => options.AuthenticationDescriptions.Clear());
-
             app.UseApplicationInsightsExceptionTelemetry();
-
             app.UseStaticFiles();
-
             app.UseIdentity();
-
-            // To configure external authentication please see http://go.microsoft.com/fwlink/?LinkID=532715
 
             app.UseMvc(routes =>
             {
@@ -104,7 +98,6 @@ namespace Icb.Web
             });
         }
 
-        // Entry point for the application.
         public static void Main(string[] args) => WebApplication.Run<Startup>(args);
     }
 }

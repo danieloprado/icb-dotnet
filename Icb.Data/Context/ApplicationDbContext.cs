@@ -15,6 +15,7 @@ namespace Icb.Data.Context
 
             AddressMap.Map(builder);
             AlertMap.Map(builder);
+            CellMessageMap.Map(builder);
             EventCategoryMap.Map(builder);
             EventMap.Map(builder);
             PersonMap.Map(builder);

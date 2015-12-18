@@ -31,14 +31,14 @@ namespace Icb.Domain.Entities
         public DateTime? EndDate { get; set; }
 
         //FACTORY
-        public static Alert Create(string title, enType type, string description, DateTime? EndDate = null)
+        public static Alert Create(string title, enType type, string description, DateTime? endDate = null)
         {
             return new Alert
             {
                 Title = title,
                 Type = type,
                 Description = description,
-                EndDate = EndDate
+                EndDate = endDate
             };
         }
     }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Icb.Domain.Entities;
-using Icb.Domain.ValueObjects;
 using Microsoft.Data.Entity;
 using Microsoft.Data.Entity.Metadata.Builders;
 
@@ -20,7 +19,6 @@ namespace Icb.Data.Mapping
             entity.Property(p => p.Id)
                 .ValueGeneratedOnAdd();
 
-            //NAME
             entity.Property(p => p.FirstName)
                 .IsRequired()
                 .HasMaxLength(100);
@@ -31,9 +29,10 @@ namespace Icb.Data.Mapping
 
             entity.Ignore(p => p.FullName);
 
-            //PROPS
             entity.Property(p => p.Email)
               .HasMaxLength(256);
+
+            entity.Property(p => p.DeletedDate);
         }
     }
 

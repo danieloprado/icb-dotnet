@@ -1,6 +1,5 @@
 ﻿using System;
 using Icb.Domain.Interfaces;
-using Icb.Domain.ValueObjects;
 
 namespace Icb.Domain.Entities
 {
@@ -24,8 +23,10 @@ namespace Icb.Domain.Entities
 
         public DateTime CreatedDate { get; set; }
 
+        public DateTime? DeletedDate { get; set; }
 
-        
+        public bool IsDeleted => DeletedDate.HasValue;
+
         //FKs
         public User User { get; set; }
 
@@ -38,7 +39,8 @@ namespace Icb.Domain.Entities
             return new Person
             {
                 FirstName = firstName,
-                LastName = lastName
+                LastName = lastName,
+                CreatedDate = DateTime.Now
             };
         }
 
