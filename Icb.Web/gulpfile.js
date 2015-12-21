@@ -1,45 +1,94 @@
-﻿/// <binding Clean='clean' />
-"use strict";
+﻿"use strict";
 
-var gulp = require("gulp"),
-    rimraf = require("rimraf"),
-    concat = require("gulp-concat"),
-    cssmin = require("gulp-cssmin"),
-    uglify = require("gulp-uglify");
+var gulp = require("gulp");
+var $ = require("gulp-load-plugins")();
+var rimraf = require("rimraf");
 
 var paths = {
     webroot: "./wwwroot/"
 };
 
-paths.js = paths.webroot + "js/**/*.js";
-paths.minJs = paths.webroot + "js/**/*.min.js";
-paths.css = paths.webroot + "css/**/*.css";
-paths.minCss = paths.webroot + "css/**/*.min.css";
-paths.concatJsDest = paths.webroot + "js/site.min.js";
-paths.concatCssDest = paths.webroot + "css/site.min.css";
+paths.js = [
+    paths.webroot + "app/module.js",
+    paths.webroot + "app/**/*.js"
+];
+paths.jsLibs = [
+    paths.webroot + "lib/jquery/dist/jquery.min.js",
 
+    //jquery validate
+    paths.webroot + "lib/jquery-validation/dist/jquery.validate.min.js",
+    paths.webroot + "lib/jquery-validation/dist/additional-methods.min.js",
+    paths.webroot + "lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js",
+
+    //bootstrap
+    paths.webroot + "lib/bootstrap/dist/js/bootstrap.min.js",
+
+    //angular
+    paths.webroot + "lib/angular/angular.min.js",
+    paths.webroot + "lib/angular-animate/angular-animate.min.js",
+    paths.webroot + "lib/angular-aria/angular-aria.min.js",
+    paths.webroot + "lib/angular-material/angular-material.min.js"
+
+];
+paths.jsFolder = paths.webroot + "js";
+
+paths.sass = paths.webroot + "scss/app.scss";
+paths.cssFolder = paths.webroot + "css";
+
+
+//CLEAN
 gulp.task("clean:js", function (cb) {
-    rimraf(paths.concatJsDest, cb);
+    rimraf(paths.jsFolder + "**/*.js", cb);
 });
 
 gulp.task("clean:css", function (cb) {
-    rimraf(paths.concatCssDest, cb);
+    rimraf(paths.cssFolder + "app.css", cb);
 });
 
 gulp.task("clean", ["clean:js", "clean:css"]);
 
-gulp.task("min:js", function () {
-    return gulp.src([paths.js, "!" + paths.minJs], { base: "." })
-        .pipe(concat(paths.concatJsDest))
-        .pipe(uglify())
-        .pipe(gulp.dest("."));
+//SASS
+gulp.task("sass", function () {
+    return gulp.src(paths.sass)
+        .pipe($.sourcemaps.init())
+		.pipe($.sass({
+		    outputStyle: "compressed"
+		}).on('error', $.sass.logError))
+		.pipe($.autoprefixer({
+		    browsers: ["last 2 versions", "ie >= 9"]
+		}))
+        .pipe($.sourcemaps.write())
+		.pipe(gulp.dest(paths.cssFolder));
 });
 
-gulp.task("min:css", function () {
-    return gulp.src([paths.css, "!" + paths.minCss])
-        .pipe(concat(paths.concatCssDest))
-        .pipe(cssmin())
-        .pipe(gulp.dest("."));
+
+//JS
+gulp.task("js:libs", function () {
+    return gulp.src(paths.jsLibs)
+        //.pipe($.uglify())
+		.pipe($.concat("libs.js"))
+		.pipe(gulp.dest(paths.jsFolder));
 });
 
-gulp.task("min", ["min:js", "min:css"]);
+gulp.task("js:hint", function () {
+    return gulp.src(paths.js)
+		.pipe($.jshint())
+		.pipe($.jshint.reporter("default"));
+});
+
+gulp.task("js", ["js:hint"], function () {
+    return gulp.src(paths.js)
+		.pipe($.sourcemaps.init())
+		.pipe($.uglify())
+		.pipe($.concat("app.js"))
+		.pipe($.sourcemaps.write())
+		.pipe(gulp.dest(paths.jsFolder));
+});
+
+//DEFAULT
+gulp.task("default", ["js:libs", "js", "sass"]);
+
+gulp.task("watch", ["default"], function () {
+    gulp.watch([paths.webroot + "scss/**/*.scss"], ["sass"]);
+    gulp.watch(paths.js, ["js"]);
+});

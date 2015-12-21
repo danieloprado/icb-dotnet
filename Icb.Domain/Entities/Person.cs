@@ -34,12 +34,13 @@ namespace Icb.Domain.Entities
 
 
         //FACTORIES
-        public static Person Create(string firstName, string lastName)
+        public static Person Create(string firstName, string lastName, string email = null)
         {
             return new Person
             {
                 FirstName = firstName,
                 LastName = lastName,
+                Email = email,
                 CreatedDate = DateTime.Now
             };
         }

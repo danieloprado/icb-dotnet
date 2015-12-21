@@ -7,7 +7,7 @@ using Microsoft.Data.Entity;
 
 namespace Icb.Data.Mapping
 {
-    public class EventMap
+    public static class EventMap
     {
         public static void Map(ModelBuilder builder)
         {

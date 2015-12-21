@@ -7,7 +7,7 @@ using Microsoft.Data.Entity;
 
 namespace Icb.Data.Mapping
 {
-    public class UserMap
+    public static class UserMap
     {
         public static void Map(ModelBuilder builder)
         {

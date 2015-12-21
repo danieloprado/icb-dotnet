@@ -7,7 +7,7 @@ using Microsoft.Data.Entity;
 
 namespace Icb.Data.Mapping
 {
-    public class CellMessageMap
+    public static class CellMessageMap
     {
         public static void Map(ModelBuilder builder)
         {

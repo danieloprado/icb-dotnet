@@ -6,9 +6,10 @@ using Icb.Domain.Entities;
 
 namespace Icb.Domain.Interfaces.Repositories
 {
-    public interface IPersonRepository : IRepository<Person>
+    public interface IPersonRepository
     {
-        Task<List<Person>> List();
+        Task<Person> Find(int id);
+
         Task<Person> Insert(Person person);
     }
 }

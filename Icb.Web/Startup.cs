@@ -6,6 +6,7 @@ using Icb.Data.Context;
 using Icb.Domain.Entities;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Data.Entity;
 using Microsoft.Extensions.Configuration;
@@ -17,6 +18,8 @@ namespace Icb.Web
     public class Startup
     {
         private readonly IConfigurationRoot _configuration;
+        public static void Main(string[] args) => WebApplication.Run<Startup>(args);
+
 
         public Startup(IHostingEnvironment env)
         {
@@ -27,7 +30,6 @@ namespace Icb.Web
             if (env.IsDevelopment())
             {
                 builder.AddUserSecrets();
-                builder.AddApplicationInsightsSettings(true);
             }
 
             builder.AddEnvironmentVariables();
@@ -37,8 +39,6 @@ namespace Icb.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddApplicationInsightsTelemetry(_configuration);
-
             services.AddEntityFramework()
                 .AddSqlServer()
                 .AddDbContext<ApplicationDbContext>(options =>
@@ -50,17 +50,13 @@ namespace Icb.Web
 
             services.AddMvc();
 
-            // Add application services.
-            //services.AddTransient<IEmailSender, AuthMessageSender>();
-            //services.AddTransient<ISmsSender, AuthMessageSender>();
+            Data.DependencyInjection.ConfigInjection.Map(services);
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddConsole(_configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
-
-            app.UseApplicationInsightsRequestTelemetry();
 
             if (env.IsDevelopment())
             {
@@ -72,7 +68,6 @@ namespace Icb.Web
             {
                 app.UseExceptionHandler("/Home/Error");
 
-                // For more details on creating database during deployment see http://go.microsoft.com/fwlink/?LinkID=615859
                 try
                 {
                     using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>()
@@ -82,13 +77,17 @@ namespace Icb.Web
                              .Database.Migrate();
                     }
                 }
-                catch { }
+                catch
+                {
+                    // ignored
+                }
             }
 
             app.UseIISPlatformHandler(options => options.AuthenticationDescriptions.Clear());
-            app.UseApplicationInsightsExceptionTelemetry();
             app.UseStaticFiles();
             app.UseIdentity();
+
+            IdentityConfig(app);
 
             app.UseMvc(routes =>
             {
@@ -96,8 +95,20 @@ namespace Icb.Web
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
         }
 
-        public static void Main(string[] args) => WebApplication.Run<Startup>(args);
+        private static void IdentityConfig(IApplicationBuilder app)
+        {
+            var userManager = app.ApplicationServices.GetService<UserManager<User>>();
+            var user = User.Create("Daniel", "Prado", "danieloprado@outlook.com");
+
+            var userExists = userManager.FindByEmailAsync(user.Email).Result;
+            if (userExists == null)
+            {
+                Task.WaitAll(userManager.CreateAsync(user, "Ng)snuV5Gu)/d7Xe"));
+            }
+        }
+
     }
 }

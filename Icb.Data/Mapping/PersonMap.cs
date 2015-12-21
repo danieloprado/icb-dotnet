@@ -8,7 +8,7 @@ using Microsoft.Data.Entity.Metadata.Builders;
 
 namespace Icb.Data.Mapping
 {
-    public class PersonMap
+    public static class PersonMap
     {
         public static void Map(ModelBuilder builder)
         {

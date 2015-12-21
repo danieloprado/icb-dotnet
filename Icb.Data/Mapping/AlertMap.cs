@@ -7,7 +7,7 @@ using Microsoft.Data.Entity;
 
 namespace Icb.Data.Mapping
 {
-    public class AlertMap
+    public static class AlertMap
     {
         public static void Map(ModelBuilder builder)
         {

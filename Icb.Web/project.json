@@ -1,4 +1,4 @@
-﻿{
+{
     "userSecretsId": "aspnet5-Icb.Web-2c5f1682-c196-4564-8e52-7b5db4292b73",
     "version": "1.0.0-*",
     "compilationOptions": {
@@ -8,9 +8,9 @@
     "dependencies": {
         "EntityFramework.Commands": "7.0.0-rc1-final",
         "EntityFramework.MicrosoftSqlServer": "7.0.0-rc1-final",
+        "Icb.CrossCutting": "1.0.0-*",
         "Icb.Data": "1.0.0-*",
         "Icb.Domain": "1.0.0-*",
-        "Microsoft.ApplicationInsights.AspNet": "1.0.0-rc1",
         "Microsoft.AspNet.Authentication.Cookies": "1.0.0-rc1-final",
         "Microsoft.AspNet.Diagnostics.Entity": "7.0.0-rc1-final",
         "Microsoft.AspNet.Identity.EntityFramework": "3.0.0-rc1-final",
@@ -49,6 +49,6 @@
         "**.vspscc"
     ],
     "scripts": {
-        "prepublish": [ "npm install", "bower install", "gulp clean", "gulp min" ]
+        "prepublish": [ "npm install", "bower install", "gulp clean", "gulp default" ]
     }
 }
