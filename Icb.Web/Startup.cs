@@ -12,6 +12,8 @@ using Microsoft.Data.Entity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using System.IdentityModel.Tokens.Jwt;
+using System.IdentityModel;
 
 namespace Icb.Web
 {
@@ -87,15 +89,9 @@ namespace Icb.Web
             app.UseStaticFiles();
             app.UseIdentity();
 
+
             IdentityConfig(app);
-
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-            });
-
+            RouterConfig(app);
         }
 
         private static void IdentityConfig(IApplicationBuilder app)
@@ -108,6 +104,17 @@ namespace Icb.Web
             {
                 Task.WaitAll(userManager.CreateAsync(user, "Ng)snuV5Gu)/d7Xe"));
             }
+        }
+
+        private static void RouterConfig(IApplicationBuilder app)
+        {
+
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute("templates/area", "templates/{area}/{path}/{url}", new { controller = "Resource", action = "Templates" });
+                routes.MapRoute("templates/path", "templates/{path}/{url}", new { controller = "Resource", action = "Templates" });
+                routes.MapRoute("default", "{*url}", new {controller = "Resource", action = "Public"});
+            });
         }
 
     }

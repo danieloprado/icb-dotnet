@@ -1,2 +1,16 @@
-!function(){"use strict"}(angular);
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIm1vZHVsZS5qcyJdLCJuYW1lcyI6WyJhbmd1bGFyIl0sIm1hcHBpbmdzIjoiQ0FBQSxXQUNJLGNBRURBIiwiZmlsZSI6ImFwcC5qcyIsInNvdXJjZXNDb250ZW50IjpbIihmdW5jdGlvbigpIHtcclxuICAgIFwidXNlIHN0cmljdFwiO1xyXG5cclxufSkoYW5ndWxhcik7Il0sInNvdXJjZVJvb3QiOiIvc291cmNlLyJ9
+var SharedModule;
+(function (SharedModule) {
+    SharedModule.module = angular.module("icbApp.shared", ['ngRoute']);
+    SharedModule.module
+        .config(['$locationProvider', '$httpProvider', config])
+        .run(["$rootScope", run]);
+    function config($locationProvider, $httpProvider) {
+    }
+    function run($rootScope) {
+    }
+})(SharedModule || (SharedModule = {}));
+var PublicApp;
+(function (PublicApp) {
+    PublicApp.module = angular.module("icbApp.public", [SharedModule.module.name]);
+})(PublicApp || (PublicApp = {}));
+//# sourceMappingURL=app.js.map

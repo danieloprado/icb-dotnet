@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "noEmitOnError": true,
+        "noImplicitAny": false,
+        "out": "wwwroot/js/app.js",
+        "removeComments": true,
+        "sourceMap": true,
+        "target": "es5"
+    },
+    "exclude": [
+        "node_modules",
+        "wwwroot"
+    ]
+}
