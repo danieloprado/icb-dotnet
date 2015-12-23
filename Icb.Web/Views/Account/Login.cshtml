@@ -1,0 +1,49 @@
+﻿@using System.Collections.Generic
+@using Icb.Domain.Entities
+@using Microsoft.AspNet.Http
+@using Microsoft.AspNet.Http.Authentication
+@model LoginViewModel
+@inject SignInManager<User> SignInManager
+
+@{
+    ViewData["Title"] = "Log in";
+}
+
+        <section class="container">
+            <h2>@ViewData["Title"].</h2>
+
+            <form method="post" class="form-horizontal" (ngSubmit)="onSubmit(form)" #form>
+                <h4>Use a local account to log in.</h4>
+                <hr />
+                {{form}}
+                <div class="form-group">
+                    <label asp-for="Email" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Email" class="form-control" [(ngModel)]="model.name" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    {{model.name}}
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Password" class="form-control" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <div class="checkbox">
+                            <input asp-for="RememberMe" />
+                            <label asp-for="RememberMe"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <button type="submit" class="btn btn-default">Log in</button>
+                    </div>
+                </div>
+            </form>
+        </section>
