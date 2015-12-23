@@ -34,11 +34,11 @@ var paths = {
         "bower_components/bootstrap/dist/js/bootstrap.min.js",
 
         //angular
-        "bower_components/angular/angular.min.js",
-        "bower_components/angular-animate/angular-animate.min.js",
-        "bower_components/angular-aria/angular-aria.min.js",
-        "bower_components/angular-material/angular-material.min.js",
-        "bower_components/angular-route/angular-route.min.js"
+        "node_modules/angular2/bundles/angular2-polyfills.js",
+        "node_modules/systemjs/dist/system.src.js",
+        "node_modules/rxjs/bundles/Rx.js",
+        "node_modules/angular2/bundles/angular2.dev.js",
+        "node_modules/angular2/bundles/router.js"
     ]
 };
 

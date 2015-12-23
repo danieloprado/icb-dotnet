@@ -1,35 +1,43 @@
 {
-  "name": "icb",
-  "version": "0.0.0",
-  "main": "gulpfile.js",
-  "dependencies": {
-    "gulp": "^3.8.11",
-    "gulp-autoprefixer": "^2.2.0",
-    "gulp-concat": "^2.5.2",
-    "gulp-cssmin": "^0.1.7",
-    "gulp-jshint": "^1.10.0",
-    "gulp-load-plugins": "^1.1.0",
-    "gulp-rename": "^1.2.2",
-    "gulp-sass": "^2.1.0",
-    "gulp-sourcemaps": "^1.5.2",
-    "gulp-uglify": "^1.2.0",
-    "rimraf": "^2.2.8"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@github.com/danieloprado/icb.git"
-  },
-  "keywords": [
-    "icb"
-  ],
-  "author": "danieloprado <danieloprado@outlook.com>",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/danieloprado/icb/issues"
-  },
-  "homepage": "https://github.com/danieloprado/icb#readme",
-  "description": ""
+    "name": "icb",
+    "version": "0.0.0",
+    "main": "gulpfile.js",
+    "dependencies": {
+        "gulp": "^3.8.11",
+        "gulp-autoprefixer": "^2.2.0",
+        "gulp-concat": "^2.5.2",
+        "gulp-cssmin": "^0.1.7",
+        "gulp-jshint": "^1.10.0",
+        "gulp-load-plugins": "^1.1.0",
+        "gulp-rename": "^1.2.2",
+        "gulp-sass": "^2.1.0",
+        "gulp-sourcemaps": "^1.5.2",
+        "gulp-uglify": "^1.2.0",
+        "rimraf": "^2.2.8",
+
+        "angular2": "2.0.0-beta.0",
+        "systemjs": "0.19.6",
+        "es6-promise": "^3.0.2",
+        "es6-shim": "^0.33.3",
+        "reflect-metadata": "0.1.2",
+        "rxjs": "5.0.0-beta.0",
+        "zone.js": "0.5.10"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+ssh://git@github.com/danieloprado/icb.git"
+    },
+    "keywords": [
+        "icb"
+    ],
+    "author": "danieloprado <danieloprado@outlook.com>",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/danieloprado/icb/issues"
+    },
+    "homepage": "https://github.com/danieloprado/icb#readme",
+    "description": ""
 }

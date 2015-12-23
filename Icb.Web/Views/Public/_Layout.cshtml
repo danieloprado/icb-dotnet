@@ -1,19 +1,29 @@
-﻿@using System.Threading.Tasks
-<!DOCTYPE html>
-<html ng-app="icbApp.public">
+﻿<!DOCTYPE html>
+<html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ICB</title>
-
+    <base href="/">
 
     <link href="~/css/theme.css" rel="stylesheet" />
     <link href="~/css/app.css" rel="stylesheet" asp-append-version="true" />
 </head>
 <body>
-    <ng-view></ng-view>
+    <my-app></my-app>
 
     <script src="~/js/libs.js" asp-append-version="true"></script>
-    <script src="~/js/app.js" asp-append-version="true"></script>
+    <script>
+        System.config({
+            packages: {
+                js: {
+                    format: 'register',
+                    defaultExtension: 'js'
+                }
+            }
+        });
+        System.import('js/boot')
+          .then(null, console.error.bind(console));
+    </script>
 </body>
 </html>
