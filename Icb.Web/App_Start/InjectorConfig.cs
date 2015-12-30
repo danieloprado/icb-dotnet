@@ -1,6 +1,8 @@
 ﻿using SimpleInjector;
-using SimpleInjector.Integration.WebApi;
+using SimpleInjector.Integration.Web;
+using SimpleInjector.Integration.Web.Mvc;
 using System.Web.Http;
+using System.Web.Mvc;
 
 namespace Icb.Web.App_Start
 {
@@ -9,7 +11,7 @@ namespace Icb.Web.App_Start
         public static void Setup()
         {
             var container = new Container();
-            container.Options.DefaultScopedLifestyle = new WebApiRequestLifestyle();
+            container.Options.DefaultScopedLifestyle = new WebRequestLifestyle();
 
             Infra.DependencyInjection.InjectConfigurator.Setup(container);
 
@@ -17,8 +19,8 @@ namespace Icb.Web.App_Start
 #if DEBUG
             //container.Verify();
 #endif
-            //DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(container));
-            GlobalConfiguration.Configuration.DependencyResolver = new SimpleInjectorWebApiDependencyResolver(container);
+            DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(container));
+            //GlobalConfiguration.Configuration.DependencyResolver = new SimpleInjectorDependencyResolver(container);
 
         }
     }

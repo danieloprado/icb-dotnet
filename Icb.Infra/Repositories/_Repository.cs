@@ -13,10 +13,10 @@ namespace Icb.Infra.Repositories
 
         protected Repository(string collectionName)
         {
-            var client = new MongoClient(ConfigurationManager.ConnectionStrings["MongoDb"].ToString());
+           // var client = new MongoClient(ConfigurationManager.ConnectionStrings["MongoDb"].ToString());
 
-            var db = client.GetDatabase(ConfigurationManager.AppSettings["MongoDb.Database"]);
-            Collection = db.GetCollection<E>(collectionName);
+            //var db = client.GetDatabase(ConfigurationManager.AppSettings["MongoDb.Database"]);
+            //Collection = db.GetCollection<E>(collectionName);
         }
 
         public virtual async Task<E> Find(string id)

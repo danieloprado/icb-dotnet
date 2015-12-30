@@ -1,5 +1,4 @@
-﻿using Icb.Domain.Entities;
-using Icb.Domain.Interfaces.Repositories;
+﻿using Icb.Domain.Interfaces.Repositories;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
@@ -16,8 +15,8 @@ namespace Icb.Web.Controllers
 
         public async Task<ActionResult> Index()
         {
-            var person = Person.Create("daniel");
-            await _personRepository.Insert(person);
+            //var person = Person.Create("daniel");
+            //await _personRepository.Insert(person);
 
             ViewBag.Title = "Home Page";
 
