@@ -13,13 +13,25 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System.IdentityModel.Tokens.Jwt;
-using System.IdentityModel;
+using System.IdentityModel.Tokens;
+using Microsoft.AspNet.Authentication.OAuthBearer;
+using System.Security.Cryptography;
+using Microsoft.AspNet.Diagnostics;
+using Newtonsoft.Json;
+using Microsoft.AspNet.Http;
+using Microsoft.AspNet.Authorization;
+using Microsoft.AspNet.Authentication.JwtBearer;
 
 namespace Icb.Web
 {
     public class Startup
     {
+
+        private RsaSecurityKey key;
+        private TokenConfig tokenOptions;
+
         private readonly IConfigurationRoot _configuration;
+        private readonly TokenConfig _tokenConfig;
         public static void Main(string[] args) => WebApplication.Run<Startup>(args);
 
 
@@ -36,6 +48,7 @@ namespace Icb.Web
 
             builder.AddEnvironmentVariables();
             _configuration = builder.Build();
+            _tokenConfig = new TokenConfig(_configuration);
         }
 
 
@@ -51,6 +64,7 @@ namespace Icb.Web
                 .AddDefaultTokenProviders();
 
             services.AddMvc();
+            _tokenConfig.Services(services, _configuration);
 
             Data.DependencyInjection.ConfigInjection.Map(services);
         }
@@ -89,6 +103,8 @@ namespace Icb.Web
             app.UseStaticFiles();
             app.UseIdentity();
 
+            _tokenConfig.App(app);
+
 
             IdentityConfig(app);
             RouterConfig(app);
@@ -106,6 +122,7 @@ namespace Icb.Web
             }
         }
 
+
         private static void RouterConfig(IApplicationBuilder app)
         {
 
@@ -113,9 +130,8 @@ namespace Icb.Web
             {
                 routes.MapRoute("templates/area", "templates/{area}/{path}/{url}", new { controller = "Resource", action = "Templates" });
                 routes.MapRoute("templates/path", "templates/{path}/{url}", new { controller = "Resource", action = "Templates" });
-                routes.MapRoute("default", "{*url}", new {controller = "Resource", action = "Index"});
+                routes.MapRoute("default", "{*url}", new { controller = "Resource", action = "Index" });
             });
         }
-
     }
 }
