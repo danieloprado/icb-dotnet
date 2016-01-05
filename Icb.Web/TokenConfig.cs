@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNet.Authentication.JwtBearer;
+﻿using Icb.Web.Services;
+using Microsoft.AspNet.Authentication.JwtBearer;
 using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Builder;
+using Microsoft.AspNet.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.PlatformAbstractions;
 using Newtonsoft.Json;
 using System;
 using System.IdentityModel.Tokens;
@@ -19,9 +22,11 @@ namespace Icb.Web
         private RsaSecurityKey _key;
         private TokenAuthOptions _tokenOptions;
 
-        public TokenConfig(IConfigurationRoot configuration)
+        public TokenConfig(IApplicationEnvironment env, IConfigurationRoot configuration)
         {
-            var keyParams = RSALoader.FromFile(configuration["RSAKeyValue"]);
+            var path = Path.Combine(env.ApplicationBasePath, configuration["RSAKeyValue"]);
+            var keyParams = RSALoader.FromFile(path);
+
             _key = new RsaSecurityKey(keyParams);
             _tokenOptions = new TokenAuthOptions()
             {
@@ -33,6 +38,7 @@ namespace Icb.Web
 
         public void App(IApplicationBuilder app)
         {
+
             app.UseJwtBearerAuthentication(options =>
             {
                 options.TokenValidationParameters.IssuerSigningKey = _key;
@@ -48,12 +54,15 @@ namespace Icb.Web
 
         public void Services(IServiceCollection services, IConfigurationRoot configuration)
         {
+            services.AddScoped<TokenService>();
             services.AddInstance(_tokenOptions);
             services.AddAuthorization(auth =>
             {
-                auth.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
+                auth.AddPolicy(JwtBearerDefaults.AuthenticationScheme‌​, new AuthorizationPolicyBuilder()
                     .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme‌​)
                     .RequireAuthenticatedUser().Build());
+
+                auth.DefaultPolicy = auth.GetPolicy(JwtBearerDefaults.AuthenticationScheme‌​);
             });
         }
 

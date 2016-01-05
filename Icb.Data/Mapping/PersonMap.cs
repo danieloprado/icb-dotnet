@@ -33,6 +33,8 @@ namespace Icb.Data.Mapping
               .HasMaxLength(256);
 
             entity.Property(p => p.DeletedDate);
+
+            entity.Ignore(p => p.IsDeleted);
         }
     }
 

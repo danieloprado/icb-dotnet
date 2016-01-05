@@ -11,111 +11,75 @@ using Microsoft.AspNet.Mvc.Rendering;
 using Microsoft.Data.Entity;
 using Microsoft.Extensions.Logging;
 using Icb.Web.ViewModels.Account;
+using Microsoft.AspNet.Authentication.JwtBearer;
+using Icb.Web.Services;
+using Icb.Domain.Interfaces.Repositories;
+using Icb.CrossCutting;
 
 namespace Icb.Web.Controllers
 {
     [Authorize]
+    [Route("api/[controller]")]
     public class AccountController : Controller
     {
         private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
-        private readonly ILogger _logger;
+        private readonly TokenService _tokenService;
+        private readonly IPersonRepository _personRepository;
+
 
         public AccountController(
             UserManager<User> userManager,
-            SignInManager<User> signInManager,
-            ILoggerFactory loggerFactory)
+            TokenService tokenService,
+            IPersonRepository personRepository)
         {
             _userManager = userManager;
-            _signInManager = signInManager;
-            _logger = loggerFactory.CreateLogger<AccountController>();
+            _tokenService = tokenService;
+            _personRepository = personRepository;
         }
 
-        //
-        // GET: /Account/Login
-        [HttpGet]
         [AllowAnonymous]
-        public IActionResult Login(string returnUrl = null)
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(LoginViewModel model)
         {
-            ViewData["ReturnUrl"] = returnUrl;
-            return View();
-        }
-
-
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
-        {
-            ViewData["ReturnUrl"] = returnUrl;
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                // This doesn't count login failures towards account lockout
-                // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
-                if (result.Succeeded)
-                {
-                    _logger.LogInformation(1, "User logged in.");
-                    return RedirectToLocal(returnUrl);
-                }
-                if (result.RequiresTwoFactor)
-                {
-                    //return RedirectToAction(nameof(SendCode), new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                }
-                if (result.IsLockedOut)
-                {
-                    _logger.LogWarning(2, "User account locked out.");
-                    return View("Lockout");
-                }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                    return View(model);
-                }
+                return HttpBadRequest(ModelState);
             }
 
-            // If we got this far, something failed, redisplay form
-            return View(model);
+            var person = await _personRepository.FindByUser(model.Email);
+            if (person == null)
+            {
+                return HttpUnauthorized();
+            }
+
+            var checkPassword = await _userManager.CheckPasswordAsync(person.User, model.Password);
+            if (!checkPassword)
+            {
+                return HttpUnauthorized();
+            }
+
+            var token = await _tokenService.GerenateToken(person);
+
+            person.User = null;
+            Response.Headers.Add("X-Token", token);
+            return Ok(new
+            {
+                Person = person,
+                Token = token
+            });
         }
 
-        //
-        // POST: /Account/LogOff
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> LogOff()
+        //[HttpPost("testToken")]
+        //public async Task<IActionResult> TestToken()
         //{
-        //    await _signInManager.SignOutAsync();
-        //    _logger.LogInformation(4, "User logged out.");
-        //    return RedirectToAction(nameof(HomeController.Index), "Home");
+        //    return Ok(new
+        //    {
+        //        Id = User.GetUserId(),
+        //        username = User.Identity.Name,
+        //        roles = User.Identity.Roles(),
+        //        giveName = User.Identity.GivenName(),
+        //        email = User.Identity.Email(),
+        //    });
         //}
-
-        #region Helpers
-
-        private void AddErrors(IdentityResult result)
-        {
-            foreach (var error in result.Errors)
-            {
-                ModelState.AddModelError(string.Empty, error.Description);
-            }
-        }
-
-        private async Task<User> GetCurrentUserAsync()
-        {
-            return await _userManager.FindByIdAsync(HttpContext.User.GetUserId());
-        }
-
-        private IActionResult RedirectToLocal(string returnUrl)
-        {
-            if (Url.IsLocalUrl(returnUrl))
-            {
-                return Redirect(returnUrl);
-            }
-            else
-            {
-                return RedirectToAction("Index", "Home");
-            }
-        }
-
-        #endregion
     }
 }

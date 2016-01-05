@@ -9,7 +9,7 @@ namespace Icb.Domain.Interfaces.Repositories
     public interface IPersonRepository
     {
         Task<Person> Find(int id);
-
+        Task<Person> FindByUser(string username);
         Task<Person> Insert(Person person);
     }
 }

@@ -13,12 +13,17 @@ namespace Icb.Data.Repositories
     {
         public PersonRepository(ApplicationDbContext database) : base(database)
         {
-            
+
         }
 
         public async Task<Person> Find(int id)
         {
             return await Db.Person.FirstOrDefaultAsync(m => m.Id == id);
+        }
+
+        public async Task<Person> FindByUser(string username)
+        {
+            return await Db.Person.Include(x => x.User).FirstOrDefaultAsync(m => m.User.Email == username);
         }
 
         public Task<Person> Insert(Person person)
