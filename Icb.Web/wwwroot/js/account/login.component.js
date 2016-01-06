@@ -1,4 +1,4 @@
-System.register(['angular2/core', './login.model'], function(exports_1) {
+System.register(['angular2/core', 'angular2/router', './login.model', './account.service'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,19 +8,31 @@ System.register(['angular2/core', './login.model'], function(exports_1) {
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, login_model_1;
+    var core_1, router_1, login_model_1, account_service_1;
     var LoginComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             },
+            function (router_1_1) {
+                router_1 = router_1_1;
+            },
             function (login_model_1_1) {
                 login_model_1 = login_model_1_1;
+            },
+            function (account_service_1_1) {
+                account_service_1 = account_service_1_1;
             }],
         execute: function() {
             LoginComponent = (function () {
-                function LoginComponent() {
+                function LoginComponent(router, accountService) {
+                    this.router = router;
+                    this.accountService = accountService;
+                    if (accountService.isLogged()) {
+                        router.navigate(['Dashboard']);
+                        return;
+                    }
                     this.model = new login_model_1.LoginModel();
                 }
                 LoginComponent.prototype.onSubmit = function (form) {
@@ -30,8 +42,10 @@ System.register(['angular2/core', './login.model'], function(exports_1) {
                     core_1.View({
                         templateUrl: "/templates/account/login"
                     }),
-                    core_1.Component({}), 
-                    __metadata('design:paramtypes', [])
+                    core_1.Component({
+                        providers: [account_service_1.AccountService]
+                    }), 
+                    __metadata('design:paramtypes', [router_1.Router, account_service_1.AccountService])
                 ], LoginComponent);
                 return LoginComponent;
             })();

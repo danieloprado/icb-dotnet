@@ -46176,4 +46176,4 @@ System.register("angular2/router", ["angular2/src/router/router", "angular2/src/
   return module.exports;
 });
 
-//# sourceMappingURLDisabled=router.js.map
+//# sourceMappingURLDisabled=router.dev.js.map

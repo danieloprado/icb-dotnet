@@ -13,20 +13,31 @@ namespace Icb.Web.Controllers
     {
         public ActionResult Index()
         {
-            return PartialView("~/Views/Layout.cshtml");
+            return PartialView("~/Views/_Index.cshtml");
         }
 
         public ActionResult Templates(string url, string path, string area)
         {
-            // area = area ?? path ?? "Shared";
+            var view = ResolveViewName(url, path, area);
 
-            var view = string.IsNullOrWhiteSpace(area) ?
-                $"~/Views/{path}/{url}.cshtml": 
-                $"~/Views/{area}/{path}/{url}.cshtml";
-
-            //var result = ViewEngines.Engines.FindView(ControllerContext, view, null);
             Response.Headers.Add("X-Rebuild-Validation", "true");
-            return PartialView(view);
+            return View(view);
+        }
+
+        private string ResolveViewName(string url, string path, string area)
+        {
+
+            if (string.IsNullOrWhiteSpace(path))
+            {
+                return $"~/Views/{url}.cshtml";
+            }
+
+            if (string.IsNullOrWhiteSpace(area))
+            {
+                return $"~/Views/{path}/{url}.cshtml";
+            }
+
+            return $"~/Views/{area}/{path}/{url}.cshtml";
         }
     }
 }

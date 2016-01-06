@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', './account/login.component'], function(exports_1) {
+System.register(['angular2/core', 'angular2/router', './account/login.component', './dashboard/dashboard.component'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(['angular2/core', 'angular2/router', './account/login.component'
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, login_component_1;
+    var core_1, router_1, login_component_1, dashboard_component_1;
     var AppComponent;
     return {
         setters:[
@@ -20,21 +20,26 @@ System.register(['angular2/core', 'angular2/router', './account/login.component'
             },
             function (login_component_1_1) {
                 login_component_1 = login_component_1_1;
+            },
+            function (dashboard_component_1_1) {
+                dashboard_component_1 = dashboard_component_1_1;
             }],
         execute: function() {
             AppComponent = (function () {
-                function AppComponent() {
+                function AppComponent(router) {
+                    this.router = router;
                 }
                 AppComponent = __decorate([
                     core_1.Component({
-                        selector: 'my-app',
-                        template: "<router-outlet></router-outlet>",
+                        selector: 'app',
+                        templateUrl: 'templates/layout',
                         directives: [router_1.ROUTER_DIRECTIVES]
                     }),
                     router_1.RouteConfig([
-                        { path: '/login', name: 'Login', component: login_component_1.LoginComponent, useAsDefault: true },
+                        { path: '/', name: 'Dashboard', component: dashboard_component_1.DashboardComponent },
+                        { path: '/login', name: 'Login', component: login_component_1.LoginComponent, useAsDefault: true }
                     ]), 
-                    __metadata('design:paramtypes', [])
+                    __metadata('design:paramtypes', [router_1.Router])
                 ], AppComponent);
                 return AppComponent;
             })();

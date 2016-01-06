@@ -1,6 +1,18 @@
 ﻿@import "variables";
-@import "bootstrap";
+@import "mixin";
 
-body{
+body {
     //background: red;
+}
+
+.content-hover {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: $white;
+    z-index: 1025;
+    overflow: auto;
+    @include transition;
 }

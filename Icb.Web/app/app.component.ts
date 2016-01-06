@@ -1,14 +1,21 @@
 ﻿import {Component} from 'angular2/core';
-import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
+import {RouteConfig, Router, ROUTER_DIRECTIVES} from 'angular2/router';
 
 import {LoginComponent} from './account/login.component';
+import {DashboardComponent} from './dashboard/dashboard.component';
 
 @Component({
-    selector: 'my-app',
-    template: `<router-outlet></router-outlet>`,
+    selector: 'app',
+    templateUrl: 'templates/layout',
     directives: [ROUTER_DIRECTIVES]
 })
 @RouteConfig([
-    { path: '/login', name: 'Login', component: LoginComponent, useAsDefault: true },
+    { path: '/', name: 'Dashboard', component: DashboardComponent },
+    { path: '/login', name: 'Login', component: LoginComponent, useAsDefault: true }
 ])
-export class AppComponent { }
+export class AppComponent {
+    constructor(private router: Router) {
+        //router.
+    }
+
+}

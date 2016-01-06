@@ -1,29 +1,65 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ICB</title>
-    <base href="/">
+﻿<section class="app app-header-fixed app-aside-fixed" id="app">
 
-    <link href="~/css/theme.css" rel="stylesheet" />
-    <link href="~/css/app.css" rel="stylesheet" asp-append-version="true" />
-</head>
-<body>
-    <my-app></my-app>
+    <header class="app-header navbar">
+        <div class="navbar-header bg-black">
+            <button class="pull-right visible-xs dk" (click)="showHeader = !showHeader">
+                <i class="glyphicon glyphicon-cog"></i>
+            </button>
+            <button class="pull-right visible-xs" (click)="showMenu = !showMenu">
+                <i class="glyphicon glyphicon-align-justify"></i>
+            </button>
 
-    <script src="~/js/libs.js" asp-append-version="true"></script>
-    <script>
-        System.config({
-            packages: {
-                js: {
-                    format: 'register',
-                    defaultExtension: 'js'
-                }
-            }
-        });
-        System.import('js/bootstrap')
-          .then(null, console.error.bind(console));
-    </script>
-</body>
-</html>
+            <a href="#/" class="navbar-brand text-lt">
+                <i class="fa fa-comment"></i>
+                <span class="hidden-folded m-l-xs">ICB</span>
+            </a>
+        </div>
+
+
+        <div class="collapse pos-rlt navbar-collapse box-shadow bg-white-only" [ngClass]="{ show: showHeader }">
+
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a class="dropdown-toggle clear" data-toggle="dropdown">
+                        <span>Joaquim Barbosa</span> <b class="caret"></b>
+                    </a>
+
+                    <ul class="dropdown-menu animated fadeInRight w">
+                        <li><a href="/">Sair</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+    </header>
+
+    <div class="app-aside hidden-xs bg-black" [ngClass]="{ 'off-screen': showMenu }">
+        <div class="aside-wrap">
+            <div class="navi-wrap">
+
+                <nav ui-nav="" class="navi">
+                    <ul class="nav">
+                        <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
+                            <span>Admin</span>
+                        </li>
+                        <li>
+                            <a [routerLink]="['Dashboard']" (click)="showMenu = false">
+                                <i class="glyphicon glyphicon-stats icon text-primary-dker"></i> Dashboard
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="app-content">
+        <div class="hbox hbox-auto-xs hbox-auto-sm">
+            <div class="app-content-body">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </div>
+</section>
+

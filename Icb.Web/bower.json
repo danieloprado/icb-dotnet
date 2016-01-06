@@ -6,12 +6,6 @@
     "jquery": "2.1.4",
     "jquery-validation": "1.14.0",
     "jquery-validation-unobtrusive": "3.2.4",
-    "angular": "1.4.6",
-    "angular-material": "~1.0.1",
-    "bootstrap-sass": "~3.3.6",
-    "angular-route": "~1.4.8"
-  },
-  "resolutions": {
-    "angular": "^1.4.8"
+    "animate.css": "~3.5.1"
   }
 }

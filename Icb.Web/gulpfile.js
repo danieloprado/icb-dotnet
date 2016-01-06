@@ -7,6 +7,7 @@ var rimraf = require("rimraf");
 var paths = {
     webrootJs: "./wwwroot/js",
     webrootCss: "./wwwroot/css",
+    webrootFonts: "./wwwroot/fonts",
 
     sass: [
         "scss/app.scss"
@@ -15,7 +16,13 @@ var paths = {
         //bootstrap
         "bower_components/bootstrap-sass/assets/stylesheets"
     ],
-
+    cssLibs: [
+        "bower_components/bootstrap/dist/css/bootstrap.min.css",
+        "bower_components/animate.css/animate.min.css"
+    ],
+    cssFonts: [
+        "bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.woff"
+    ],
     js: [
         "app/shared/module.js",
         "app/public/module.js",
@@ -54,12 +61,23 @@ gulp.task("clean:css", function (cb) {
 gulp.task("clean", ["clean:js", "clean:css"]);
 
 //SASS
+gulp.task("css:fonts", function () {
+    return gulp.src(paths.cssFonts)
+		.pipe(gulp.dest(paths.webrootFonts));
+});
+
+gulp.task("css:libs", ["css:fonts"], function () {
+    return gulp.src(paths.cssLibs)
+		.pipe($.concat("libs.css"))
+		.pipe(gulp.dest(paths.webrootCss));
+});
+
 gulp.task("sass", function () {
     return gulp.src(paths.sass)
         .pipe($.sourcemaps.init())
 		.pipe($.sass({
 		    outputStyle: "compressed",
-		    includePaths: paths.sassLibs
+		    //includePaths: paths.sassLibs
 		}).on('error', $.sass.logError))
 		.pipe($.autoprefixer({
 		    browsers: ["last 2 versions", "ie >= 9"]
@@ -93,7 +111,7 @@ gulp.task("js", ["js:hint"], function () {
 });
 
 //DEFAULT
-gulp.task("default", ["js:libs", "sass"]);
+gulp.task("default", ["js:libs", "css:libs", "sass"]);
 
 gulp.task("watch", ["default"], function () {
     gulp.watch(["scss/**/*.scss"], ["sass"]);

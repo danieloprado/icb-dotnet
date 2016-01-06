@@ -143,6 +143,7 @@ namespace Icb.Web
             {
                 routes.MapRoute("templates/area", "templates/{area}/{path}/{url}", new { controller = "Resource", action = "Templates" });
                 routes.MapRoute("templates/path", "templates/{path}/{url}", new { controller = "Resource", action = "Templates" });
+                routes.MapRoute("templates/url", "templates/{url}", new { controller = "Resource", action = "Templates" });
                 routes.MapRoute("default", "{*url}", new { controller = "Resource", action = "Index" });
             });
         }
