@@ -7,8 +7,10 @@ import {NgForm}    from 'angular2/common';
 @View({
     templateUrl: "/templates/dashboard"
 })
-@Component({})
+@Component({
+})
 export class DashboardComponent {
-
+    constructor() {
+    }
 }
 

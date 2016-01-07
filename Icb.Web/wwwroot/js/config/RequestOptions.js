@@ -9,31 +9,28 @@ System.register(['angular2/core'], function(exports_1) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1;
-    var AccountService;
+    var RequestOptions;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             }],
         execute: function() {
-            AccountService = (function () {
-                function AccountService() {
-                    this.tokenKey = "token";
+            RequestOptions = (function () {
+                function RequestOptions() {
+                    this.TokenKey = "token";
                 }
-                AccountService.prototype.isLogged = function () {
-                    return localStorage.getItem(this.tokenKey) != null;
+                RequestOptions.prototype.isLogged = function () {
+                    return localStorage.getItem("token") != null;
                 };
-                AccountService.prototype.getToken = function () {
-                    return localStorage.getItem(this.tokenKey);
-                };
-                AccountService = __decorate([
+                RequestOptions = __decorate([
                     core_1.Injectable(), 
                     __metadata('design:paramtypes', [])
-                ], AccountService);
-                return AccountService;
+                ], RequestOptions);
+                return RequestOptions;
             })();
-            exports_1("AccountService", AccountService);
+            exports_1("RequestOptions", RequestOptions);
         }
     }
 });
-//# sourceMappingURL=account.service.js.map
+//# sourceMappingURL=RequestOptions.js.map

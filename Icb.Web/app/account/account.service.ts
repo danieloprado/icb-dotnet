@@ -2,11 +2,13 @@
 
 @Injectable()
 export class AccountService {
-    private TokenKey: string = "token";
+    private tokenKey: string = "token";
 
     isLogged() {
-        return localStorage.getItem("token") != null;
+        return localStorage.getItem(this.tokenKey) != null;
     }
 
-        
+    getToken() {
+        return localStorage.getItem(this.tokenKey);
+    }
 }

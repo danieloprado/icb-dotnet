@@ -10,5 +10,7 @@
 /// <reference path="js/account/login.model.js" />
 /// <reference path="js/app.component.js" />
 /// <reference path="js/bootstrap.js" />
+/// <reference path="js/config/app.requestoptions.js" />
+/// <reference path="js/config/RequestOptions.js" />
 /// <reference path="js/dashboard/dashboard.component.js" />
 /// <reference path="js/libs.js" />
