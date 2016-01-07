@@ -1,18 +1,15 @@
 ﻿import {Injectable} from 'angular2/core';
 
+import {StorageService} from './storage';
+
 @Injectable()
 export class AccountService {
     private tokenKey: string = "token";
 
-    hasToken() {
-        return localStorage.getItem(this.tokenKey) != null;
+    constructor(private _storage: StorageService) {
+
     }
 
-    removeToke() {
-        localStorage.removeItem(this.tokenKey);
-    }
-
-    getToken() {
-        return localStorage.getItem(this.tokenKey);
-    }
+    isLogged = this._storage.hasToken;
+    logoff = this._storage.removeToken;
 }

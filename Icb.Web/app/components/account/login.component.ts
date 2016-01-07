@@ -17,7 +17,7 @@ export class LoginComponent {
 
     constructor(private router: Router, private accountService: AccountService) {
 
-        if (accountService.hasToken()) {
+        if (accountService.isLogged()) {
             router.navigate(['Dashboard']);
             return;
         }

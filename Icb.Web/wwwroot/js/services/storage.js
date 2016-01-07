@@ -1,4 +1,4 @@
-System.register(['angular2/core', './storage'], function(exports_1) {
+System.register(['angular2/core'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,37 +8,35 @@ System.register(['angular2/core', './storage'], function(exports_1) {
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, storage_1;
-    var AccountService;
+    var core_1;
+    var StorageService;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
-            },
-            function (storage_1_1) {
-                storage_1 = storage_1_1;
             }],
         execute: function() {
-            AccountService = (function () {
-                function AccountService(_storage) {
-                    this._storage = _storage;
+            StorageService = (function () {
+                function StorageService() {
                     this.tokenKey = "token";
-                    this.hasToken = this.hasToken;
                 }
-                AccountService.prototype.removeToke = function () {
+                StorageService.prototype.hasToken = function () {
+                    return localStorage.getItem(this.tokenKey) != null;
+                };
+                StorageService.prototype.removeToke = function () {
                     localStorage.removeItem(this.tokenKey);
                 };
-                AccountService.prototype.getToken = function () {
+                StorageService.prototype.getToken = function () {
                     return localStorage.getItem(this.tokenKey);
                 };
-                AccountService = __decorate([
+                StorageService = __decorate([
                     core_1.Injectable(), 
-                    __metadata('design:paramtypes', [storage_1.StorageService])
-                ], AccountService);
-                return AccountService;
+                    __metadata('design:paramtypes', [])
+                ], StorageService);
+                return StorageService;
             })();
-            exports_1("AccountService", AccountService);
+            exports_1("StorageService", StorageService);
         }
     }
 });
-//# sourceMappingURL=account.js.map
+//# sourceMappingURL=storage.js.map

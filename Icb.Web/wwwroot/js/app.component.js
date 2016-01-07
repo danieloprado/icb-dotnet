@@ -35,19 +35,18 @@ System.register(['angular2/core', 'angular2/router', './components/account/login
                 function AppComponent(router, accountService) {
                     this.router = router;
                     this.accountService = accountService;
-                    var publicRoutes = ["login"];
-                    router.subscribe(function (routeName) {
-                        if (accountService.hasToken()) {
-                            var form = $("#app-content-body form");
-                            form.removeData("validator");
-                            form.removeData("unobtrusiveValidation");
-                            $.validator.unobtrusive.parse("form");
+                    var publicPaths = ["login"];
+                    router.subscribe(function (url) {
+                        if (!accountService.hasToken() && publicPaths.indexOf(url) < 0) {
                             return;
                         }
-                        if (publicRoutes.indexOf(routeName) > -1) {
+                        var form = $("#app-content-body form");
+                        if (form.size() == 0) {
                             return;
                         }
-                        router.navigate(['Login']);
+                        form.removeData("validator");
+                        form.removeData("unobtrusiveValidation");
+                        $.validator.unobtrusive.parse(form);
                     });
                     if (!accountService.hasToken()) {
                         router.navigate(['Login']);

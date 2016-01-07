@@ -15,7 +15,7 @@ export class ConfigRequestOptions extends BaseRequestOptions {
             options.headers = new Headers();
         }
 
-        if (this.accountService.hasToken()) {
+        if (this.accountService.isLogged()) {
             var token = this.accountService.getToken();
             options.headers.append("Authorization", `Bearer ${token}`);
         }

@@ -23,26 +23,26 @@ import {AccountService} from './services/account';
 ])
 export class AppComponent {
     constructor(private router: Router, private accountService: AccountService) {
-        var publicRoutes = ["login"];
+        var publicPaths = ["login"];
 
-        router.subscribe((routeName) => {
-            if (accountService.hasToken()) {
-                var form = $("#app-content-body form");
-                form.removeData("validator");
-                form.removeData("unobtrusiveValidation");
-                $.validator.unobtrusive.parse("form");
-
+        router.subscribe((url) => {
+            if (!accountService.isLogged() && publicPaths.indexOf(url) < 0) {
                 return;
             }
 
-            if (publicRoutes.indexOf(routeName) > -1) {
+
+            var form = $("#app-content-body form");
+
+            if (form.size() == 0) {
                 return;
             }
 
-            router.navigate(['Login']);
+            form.removeData("validator");
+            form.removeData("unobtrusiveValidation");
+            $.validator.unobtrusive.parse(form);
         });
 
-        if (!accountService.hasToken()) {
+        if (!accountService.isLogged()) {
             router.navigate(['Login']);
         }
     }
