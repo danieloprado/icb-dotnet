@@ -23,7 +23,7 @@ System.register(['angular2/core'], function(exports_1) {
                 StorageService.prototype.hasToken = function () {
                     return localStorage.getItem(this.tokenKey) != null;
                 };
-                StorageService.prototype.removeToke = function () {
+                StorageService.prototype.removeToken = function () {
                     localStorage.removeItem(this.tokenKey);
                 };
                 StorageService.prototype.getToken = function () {

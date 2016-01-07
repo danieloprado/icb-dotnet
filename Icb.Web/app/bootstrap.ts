@@ -8,6 +8,5 @@ import {HTTP_PROVIDERS, RequestOptions} from 'angular2/http';
 
 import {AppComponent} from './app.component';
 import {APP_SERVICES} from './app.services';
-import {APP_CONFIG} from './app.config';
 
-bootstrap(AppComponent, [ROUTER_PROVIDERS, HTTP_PROVIDERS, APP_SERVICES, APP_CONFIG]);
+bootstrap(AppComponent, [ROUTER_PROVIDERS, HTTP_PROVIDERS, APP_SERVICES]);

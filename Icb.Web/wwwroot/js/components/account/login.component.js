@@ -29,7 +29,7 @@ System.register(['angular2/core', 'angular2/router', './login.model', './../../s
                 function LoginComponent(router, accountService) {
                     this.router = router;
                     this.accountService = accountService;
-                    if (accountService.hasToken()) {
+                    if (accountService.isLogged()) {
                         router.navigate(['Dashboard']);
                         return;
                     }

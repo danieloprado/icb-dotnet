@@ -37,7 +37,7 @@ System.register(['angular2/core', 'angular2/router', './components/account/login
                     this.accountService = accountService;
                     var publicPaths = ["login"];
                     router.subscribe(function (url) {
-                        if (!accountService.hasToken() && publicPaths.indexOf(url) < 0) {
+                        if (!accountService.isLogged() && publicPaths.indexOf(url) < 0) {
                             return;
                         }
                         var form = $("#app-content-body form");
@@ -48,7 +48,7 @@ System.register(['angular2/core', 'angular2/router', './components/account/login
                         form.removeData("unobtrusiveValidation");
                         $.validator.unobtrusive.parse(form);
                     });
-                    if (!accountService.hasToken()) {
+                    if (!accountService.isLogged()) {
                         router.navigate(['Login']);
                     }
                 }

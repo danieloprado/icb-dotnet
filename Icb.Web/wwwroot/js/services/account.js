@@ -23,14 +23,9 @@ System.register(['angular2/core', './storage'], function(exports_1) {
                 function AccountService(_storage) {
                     this._storage = _storage;
                     this.tokenKey = "token";
-                    this.hasToken = this.hasToken;
+                    this.isLogged = this._storage.hasToken;
+                    this.logoff = this._storage.removeToken;
                 }
-                AccountService.prototype.removeToke = function () {
-                    localStorage.removeItem(this.tokenKey);
-                };
-                AccountService.prototype.getToken = function () {
-                    return localStorage.getItem(this.tokenKey);
-                };
                 AccountService = __decorate([
                     core_1.Injectable(), 
                     __metadata('design:paramtypes', [storage_1.StorageService])

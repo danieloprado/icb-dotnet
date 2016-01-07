@@ -23,4 +23,5 @@
 /// <reference path="js/dashboard/dashboard.component.js" />
 /// <reference path="js/libs.js" />
 /// <reference path="js/services/account.js" />
+/// <reference path="js/services/api.js" />
 /// <reference path="js/services/storage.js" />
