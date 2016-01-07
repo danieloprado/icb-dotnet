@@ -9,34 +9,31 @@ System.register(['angular2/core'], function(exports_1) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1;
-    var AccountService;
+    var UserComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             }],
         execute: function() {
-            AccountService = (function () {
-                function AccountService() {
-                    this.tokenKey = "token";
+            UserComponent = (function () {
+                function UserComponent() {
                 }
-                AccountService.prototype.hasToken = function () {
-                    return localStorage.getItem(this.tokenKey) != null;
+                UserComponent.prototype.ngOnInit = function () {
+                    this.title = "user";
+                    console.log("init user");
                 };
-                AccountService.prototype.removeToke = function () {
-                    localStorage.removeItem(this.tokenKey);
-                };
-                AccountService.prototype.getToken = function () {
-                    return localStorage.getItem(this.tokenKey);
-                };
-                AccountService = __decorate([
-                    core_1.Injectable(), 
+                UserComponent = __decorate([
+                    core_1.View({
+                        templateUrl: "/templates/dashboard"
+                    }),
+                    core_1.Component({}), 
                     __metadata('design:paramtypes', [])
-                ], AccountService);
-                return AccountService;
+                ], UserComponent);
+                return UserComponent;
             })();
-            exports_1("AccountService", AccountService);
+            exports_1("UserComponent", UserComponent);
         }
     }
 });
-//# sourceMappingURL=account.service.js.map
+//# sourceMappingURL=user.component.js.map

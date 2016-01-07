@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/http', './../account/account.service'], function(exports_1) {
+System.register(['angular2/core', 'angular2/http', './../services/account'], function(exports_1) {
     var __extends = (this && this.__extends) || function (d, b) {
         for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
         function __() { this.constructor = d; }
@@ -13,8 +13,8 @@ System.register(['angular2/core', 'angular2/http', './../account/account.service
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, http_1, account_service_1;
-    var AppRequestOptions;
+    var core_1, http_1, account_1;
+    var ConfigRequestOptions;
     return {
         setters:[
             function (core_1_1) {
@@ -23,22 +23,21 @@ System.register(['angular2/core', 'angular2/http', './../account/account.service
             function (http_1_1) {
                 http_1 = http_1_1;
             },
-            function (account_service_1_1) {
-                account_service_1 = account_service_1_1;
+            function (account_1_1) {
+                account_1 = account_1_1;
             }],
         execute: function() {
-            AppRequestOptions = (function (_super) {
-                __extends(AppRequestOptions, _super);
-                function AppRequestOptions(accountService) {
+            ConfigRequestOptions = (function (_super) {
+                __extends(ConfigRequestOptions, _super);
+                function ConfigRequestOptions(accountService) {
                     _super.call(this);
                     this.accountService = accountService;
-                    this.headers = new http_1.Headers(["test", "oi"]);
                 }
-                AppRequestOptions.prototype.merge = function (options) {
+                ConfigRequestOptions.prototype.merge = function (options) {
                     if (options.headers == null) {
                         options.headers = new http_1.Headers();
                     }
-                    if (this.accountService.isLogged()) {
+                    if (this.accountService.hasToken()) {
                         var token = this.accountService.getToken();
                         options.headers.append("Authorization", "Bearer " + token);
                     }
@@ -50,13 +49,13 @@ System.register(['angular2/core', 'angular2/http', './../account/account.service
                         search: options.search
                     });
                 };
-                AppRequestOptions = __decorate([
+                ConfigRequestOptions = __decorate([
                     core_1.Injectable(), 
-                    __metadata('design:paramtypes', [account_service_1.AccountService])
-                ], AppRequestOptions);
-                return AppRequestOptions;
+                    __metadata('design:paramtypes', [account_1.AccountService])
+                ], ConfigRequestOptions);
+                return ConfigRequestOptions;
             })(http_1.BaseRequestOptions);
-            exports_1("AppRequestOptions", AppRequestOptions);
+            exports_1("ConfigRequestOptions", ConfigRequestOptions);
         }
     }
 });

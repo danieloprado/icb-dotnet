@@ -1,4 +1,9 @@
-System.register(['angular2/core'], function(exports_1) {
+System.register(['angular2/core', 'angular2/http', './../services/account'], function(exports_1) {
+    var __extends = (this && this.__extends) || function (d, b) {
+        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,29 +13,50 @@ System.register(['angular2/core'], function(exports_1) {
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1;
-    var RequestOptions;
+    var core_1, http_1, account_1;
+    var ConfigRequestOptions;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
+            },
+            function (http_1_1) {
+                http_1 = http_1_1;
+            },
+            function (account_1_1) {
+                account_1 = account_1_1;
             }],
         execute: function() {
-            RequestOptions = (function () {
-                function RequestOptions() {
-                    this.TokenKey = "token";
+            ConfigRequestOptions = (function (_super) {
+                __extends(ConfigRequestOptions, _super);
+                function ConfigRequestOptions(accountService) {
+                    _super.call(this);
+                    this.accountService = accountService;
                 }
-                RequestOptions.prototype.isLogged = function () {
-                    return localStorage.getItem("token") != null;
+                ConfigRequestOptions.prototype.merge = function (options) {
+                    if (options.headers == null) {
+                        options.headers = new http_1.Headers();
+                    }
+                    if (this.accountService.hasToken()) {
+                        var token = this.accountService.getToken();
+                        options.headers.append("Authorization", "Bearer " + token);
+                    }
+                    return new http_1.RequestOptions({
+                        method: options.method,
+                        headers: options.headers,
+                        body: options.body,
+                        url: options.url,
+                        search: options.search
+                    });
                 };
-                RequestOptions = __decorate([
+                ConfigRequestOptions = __decorate([
                     core_1.Injectable(), 
-                    __metadata('design:paramtypes', [])
-                ], RequestOptions);
-                return RequestOptions;
-            })();
-            exports_1("RequestOptions", RequestOptions);
+                    __metadata('design:paramtypes', [account_1.AccountService])
+                ], ConfigRequestOptions);
+                return ConfigRequestOptions;
+            })(http_1.BaseRequestOptions);
+            exports_1("ConfigRequestOptions", ConfigRequestOptions);
         }
     }
 });
-//# sourceMappingURL=RequestOptions.js.map
+//# sourceMappingURL=requestoptions.js.map

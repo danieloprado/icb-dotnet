@@ -4,8 +4,12 @@
 export class AccountService {
     private tokenKey: string = "token";
 
-    isLogged() {
+    hasToken() {
         return localStorage.getItem(this.tokenKey) != null;
+    }
+
+    removeToke() {
+        localStorage.removeItem(this.tokenKey);
     }
 
     getToken() {

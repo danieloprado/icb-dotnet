@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', './login.model', './../services/account'], function(exports_1) {
+System.register(['angular2/core', 'angular2/router', './login.model', './../../services/account'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -42,9 +42,7 @@ System.register(['angular2/core', 'angular2/router', './login.model', './../serv
                     core_1.View({
                         templateUrl: "/templates/account/login"
                     }),
-                    core_1.Component({
-                        providers: [account_1.AccountService]
-                    }), 
+                    core_1.Component({}), 
                     __metadata('design:paramtypes', [router_1.Router, account_1.AccountService])
                 ], LoginComponent);
                 return LoginComponent;

@@ -47,6 +47,11 @@
                                 <i class="glyphicon glyphicon-stats icon text-primary-dker"></i> Dashboard
                             </a>
                         </li>
+                        <li>
+                            <a [routerLink]="['Users']" (click)="showMenu = false">
+                                <i class="glyphicon glyphicon-stats icon text-primary-dker"></i> Users
+                            </a>
+                        </li>
                     </ul>
                 </nav>
 
@@ -56,7 +61,7 @@
 
     <div class="app-content">
         <div class="hbox hbox-auto-xs hbox-auto-sm">
-            <div class="app-content-body">
+            <div class="app-content-body" id="app-content-body">
                 <router-outlet></router-outlet>
             </div>
         </div>

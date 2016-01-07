@@ -9,34 +9,31 @@ System.register(['angular2/core'], function(exports_1) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1;
-    var AccountService;
+    var DashboardComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             }],
         execute: function() {
-            AccountService = (function () {
-                function AccountService() {
-                    this.tokenKey = "token";
+            DashboardComponent = (function () {
+                function DashboardComponent() {
                 }
-                AccountService.prototype.hasToken = function () {
-                    return localStorage.getItem(this.tokenKey) != null;
+                DashboardComponent.prototype.ngOnInit = function () {
+                    this.title = "dashboard";
+                    console.log("init dashboard");
                 };
-                AccountService.prototype.removeToke = function () {
-                    localStorage.removeItem(this.tokenKey);
-                };
-                AccountService.prototype.getToken = function () {
-                    return localStorage.getItem(this.tokenKey);
-                };
-                AccountService = __decorate([
-                    core_1.Injectable(), 
+                DashboardComponent = __decorate([
+                    core_1.View({
+                        templateUrl: "/templates/dashboard"
+                    }),
+                    core_1.Component({}), 
                     __metadata('design:paramtypes', [])
-                ], AccountService);
-                return AccountService;
+                ], DashboardComponent);
+                return DashboardComponent;
             })();
-            exports_1("AccountService", AccountService);
+            exports_1("DashboardComponent", DashboardComponent);
         }
     }
 });
-//# sourceMappingURL=account.service.js.map
+//# sourceMappingURL=dashboard.component.js.map
