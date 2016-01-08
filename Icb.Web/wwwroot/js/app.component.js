@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', './components/account/login.component', './components/dashboard/dashboard.component', './components/dashboard/user.component', './services/account'], function(exports_1) {
+System.register(['angular2/core', 'angular2/router', './app.directives', './components/account/login.component', './components/dashboard/dashboard.component', './components/dashboard/user.component', './services/account'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(['angular2/core', 'angular2/router', './components/account/login
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, login_component_1, dashboard_component_1, user_component_1, account_1;
+    var core_1, router_1, app_directives_1, login_component_1, dashboard_component_1, user_component_1, account_1;
     var AppComponent;
     return {
         setters:[
@@ -17,6 +17,9 @@ System.register(['angular2/core', 'angular2/router', './components/account/login
             },
             function (router_1_1) {
                 router_1 = router_1_1;
+            },
+            function (app_directives_1_1) {
+                app_directives_1 = app_directives_1_1;
             },
             function (login_component_1_1) {
                 login_component_1 = login_component_1_1;
@@ -56,7 +59,7 @@ System.register(['angular2/core', 'angular2/router', './components/account/login
                     core_1.Component({
                         selector: 'app',
                         templateUrl: 'templates/layout',
-                        directives: [router_1.ROUTER_DIRECTIVES]
+                        directives: [router_1.ROUTER_DIRECTIVES, app_directives_1.APP_DIRECTIVES]
                     }),
                     router_1.RouteConfig([
                         { path: '/login', name: 'Login', component: login_component_1.LoginComponent, useAsDefault: true },

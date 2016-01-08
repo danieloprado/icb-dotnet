@@ -2,6 +2,7 @@
 using Icb.Data.Context;
 using Icb.Domain.Entities;
 using Microsoft.AspNet.Authentication.Cookies;
+using Microsoft.AspNet.Authentication.JwtBearer;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Http;
@@ -13,6 +14,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.PlatformAbstractions;
 using Newtonsoft.Json.Serialization;
+using System.Diagnostics;
+using System.IO;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace Icb.Web
@@ -97,14 +101,30 @@ namespace Icb.Web
                 }
             }
 
+            //BUG: Because some middleware of .net the 401 redirect to account/login
+            app.Use(next => async context =>
+            {
+                if (context.Request.Path == "/Account/Login")
+                {
+                    context.Response.StatusCode = 401;
+                    return;
+                }
+
+                await next.Invoke(context);
+            });
+
             app.UseIISPlatformHandler(options => options.AuthenticationDescriptions.Clear());
             app.UseStaticFiles();
             app.UseIdentity();
+
+
 
             _tokenConfig.App(app);
 
             IdentityConfig(app).Wait();
             RouterConfig(app);
+
+
         }
 
         private static async Task IdentityConfig(IApplicationBuilder app)

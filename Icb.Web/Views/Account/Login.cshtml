@@ -1,39 +1,32 @@
-﻿@using System.Collections.Generic
-@using Icb.Domain.Entities
-@using Microsoft.AspNet.Http
-@using Microsoft.AspNet.Http.Authentication
-@model LoginViewModel
-@inject SignInManager<User> SignInManager
-
+﻿@model LoginViewModel
 @{
     ViewData["Title"] = "Log in";
 }
 
-<section class="content-hover animated pull-down">
-    <div class="container">
-        <h2>@ViewData["Title"].</h2>
+<section class="content-hover login-content animated fadeIn">
+    <div class="content  animated fadeInDown">
+        <form method="post" (ngSubmit)="onSubmit(form)" #form>
+            <div class="logo">
+                <img src="~/imgs/logo.png" />
+            </div>
 
-        <form method="post" class="form-horizontal" (ngSubmit)="onSubmit(form)" #form>
-            <h4>Use a local account to log in.</h4>
-            <hr />
             <div class="form-group">
-                <label asp-for="Email" class="col-md-2 control-label"></label>
-                <div class="col-md-10">
-                    <input asp-for="Email" class="form-control" [(ngModel)]="model.name" />
-                    <span asp-validation-for="Email" class="text-danger"></span>
-                </div>
+                <input asp-for="Email" class="form-control" [(ngModel)]="model.email" placeholder="Email" />
+                <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Password" class="col-md-2 control-label"></label>
-                <div class="col-md-10">
-                    <input asp-for="Password" class="form-control" />
-                    <span asp-validation-for="Password" class="text-danger"></span>
-                </div>
+                <input asp-for="Password" class="form-control" [(ngModel)]="model.password" placeholder="Password" />
+                <span asp-validation-for="Password" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <button type="submit" class="btn btn-default">Log in</button>
-                </div>
+            <div class="form-group text-right">
+                <button type="submit" class="btn btn-success btn-addon">
+                    <i class="glyphicon glyphicon-log-in"></i>
+                    Log in
+                </button>
+            </div>
+
+            <div class="validation-summary-errors" [ngShow]="errorMessage">
+                {{errorMessage}}
             </div>
         </form>
     </div>

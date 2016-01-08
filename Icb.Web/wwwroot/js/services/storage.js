@@ -18,16 +18,19 @@ System.register(['angular2/core'], function(exports_1) {
         execute: function() {
             StorageService = (function () {
                 function StorageService() {
-                    this.tokenKey = "token";
+                    this._tokenKey = "token";
                 }
                 StorageService.prototype.hasToken = function () {
-                    return localStorage.getItem(this.tokenKey) != null;
+                    return localStorage.getItem(this._tokenKey) != null;
                 };
                 StorageService.prototype.removeToken = function () {
-                    localStorage.removeItem(this.tokenKey);
+                    localStorage.removeItem(this._tokenKey);
                 };
                 StorageService.prototype.getToken = function () {
-                    return localStorage.getItem(this.tokenKey);
+                    return localStorage.getItem(this._tokenKey);
+                };
+                StorageService.prototype.setToken = function (token) {
+                    localStorage.setItem(this._tokenKey, token);
                 };
                 StorageService = __decorate([
                     core_1.Injectable(), 

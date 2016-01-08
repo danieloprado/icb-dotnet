@@ -32,18 +32,25 @@ System.register(['angular2/core', 'angular2/http', './storage'], function(export
                 };
                 ApiService.prototype.getHeaders = function () {
                     var token = this._storage.getToken();
-                    return new http_1.Headers({ "Authentication": "Bearer " + token });
+                    return new http_1.Headers({
+                        "Content-Type": "application/json; charset=UTF-8"
+                    });
+                };
+                ApiService.prototype.setBody = function (data) {
+                    if (data == null)
+                        return;
+                    return JSON.stringify(data);
                 };
                 ApiService.prototype.get = function (controller, action, data) {
                     var url = this.apiUrl(controller, action);
                     return this._http.get(url, new http_1.RequestOptions({
                         headers: this.getHeaders(),
-                        body: data
+                        body: this.setBody(data)
                     }));
                 };
                 ApiService.prototype.post = function (controller, action, data) {
                     var url = this.apiUrl(controller, action);
-                    return this._http.post(url, data, new http_1.RequestOptions({
+                    return this._http.post(url, this.setBody(data), new http_1.RequestOptions({
                         headers: this.getHeaders()
                     }));
                 };

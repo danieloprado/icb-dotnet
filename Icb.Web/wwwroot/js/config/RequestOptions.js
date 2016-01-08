@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/http', './../services/account'], function(exports_1) {
+System.register(['angular2/core', 'angular2/http'], function(exports_1) {
     var __extends = (this && this.__extends) || function (d, b) {
         for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
         function __() { this.constructor = d; }
@@ -13,7 +13,7 @@ System.register(['angular2/core', 'angular2/http', './../services/account'], fun
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, http_1, account_1;
+    var core_1, http_1;
     var ConfigRequestOptions;
     return {
         setters:[
@@ -22,36 +22,33 @@ System.register(['angular2/core', 'angular2/http', './../services/account'], fun
             },
             function (http_1_1) {
                 http_1 = http_1_1;
-            },
-            function (account_1_1) {
-                account_1 = account_1_1;
             }],
         execute: function() {
             ConfigRequestOptions = (function (_super) {
                 __extends(ConfigRequestOptions, _super);
-                function ConfigRequestOptions(accountService) {
-                    _super.call(this);
-                    this.accountService = accountService;
+                function ConfigRequestOptions() {
+                    _super.apply(this, arguments);
                 }
                 ConfigRequestOptions.prototype.merge = function (options) {
                     if (options.headers == null) {
                         options.headers = new http_1.Headers();
                     }
-                    if (this.accountService.hasToken()) {
-                        var token = this.accountService.getToken();
-                        options.headers.append("Authorization", "Bearer " + token);
-                    }
-                    return new http_1.RequestOptions({
+                    options.headers.append("test", 'oi');
+                    console.log('aqui');
+                    var request = new http_1.RequestOptions({
                         method: options.method,
                         headers: options.headers,
-                        body: options.body,
+                        body: JSON.stringify(options.body),
                         url: options.url,
                         search: options.search
                     });
+                    request.merge(options);
+                    console.log(request.headers.get('test'));
+                    return request;
                 };
                 ConfigRequestOptions = __decorate([
                     core_1.Injectable(), 
-                    __metadata('design:paramtypes', [account_1.AccountService])
+                    __metadata('design:paramtypes', [])
                 ], ConfigRequestOptions);
                 return ConfigRequestOptions;
             })(http_1.BaseRequestOptions);
@@ -59,4 +56,4 @@ System.register(['angular2/core', 'angular2/http', './../services/account'], fun
         }
     }
 });
-//# sourceMappingURL=requestoptions.js.map
+//# sourceMappingURL=requestOptions.js.map

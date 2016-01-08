@@ -4,6 +4,8 @@ import {Component} from 'angular2/core';
 import {RouteConfig, Router, ROUTER_DIRECTIVES} from 'angular2/router';
 import {Http} from 'angular2/http';
 
+import {APP_DIRECTIVES} from './app.directives';
+
 import {LoginComponent} from './components/account/login.component';
 import {DashboardComponent} from './components/dashboard/dashboard.component';
 import {UserComponent} from './components/dashboard/user.component';
@@ -14,7 +16,7 @@ import {AccountService} from './services/account';
 @Component({
     selector: 'app',
     templateUrl: 'templates/layout',
-    directives: [ROUTER_DIRECTIVES]
+    directives: [ROUTER_DIRECTIVES, APP_DIRECTIVES]
 })
 @RouteConfig([
     { path: '/login', name: 'Login', component: LoginComponent, useAsDefault: true },

@@ -62,6 +62,7 @@ namespace Icb.Web
                     .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme‌​)
                     .RequireAuthenticatedUser().Build());
 
+                
                 auth.DefaultPolicy = auth.GetPolicy(JwtBearerDefaults.AuthenticationScheme‌​);
             });
         }

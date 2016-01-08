@@ -17,7 +17,16 @@ export class ApiService {
 
     private getHeaders() {
         var token = this._storage.getToken();
-        return new Headers({ "Authentication": `Bearer ${token}` });
+        return new Headers({
+            //"Authentication": `Bearer ${token}`,
+            "Content-Type": "application/json; charset=UTF-8"
+        });
+    }
+
+    private setBody(data: any): string {
+        if (data == null) return;
+
+        return JSON.stringify(data);
     }
 
     get(controller: string, action: string, data?: any): Observable<Response> {
@@ -25,14 +34,14 @@ export class ApiService {
 
         return this._http.get(url, new RequestOptions({
             headers: this.getHeaders(),
-            body: data
+            body: this.setBody(data)
         }));
     }
 
     post(controller: string, action: string, data?: any): Observable<Response> {
         var url = this.apiUrl(controller, action);
 
-        return this._http.post(url, data, new RequestOptions({
+        return this._http.post(url, this.setBody(data), new RequestOptions({
             headers: this.getHeaders()
         }));
     }

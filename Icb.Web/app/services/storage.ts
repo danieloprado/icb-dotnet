@@ -2,17 +2,21 @@
 
 @Injectable()
 export class StorageService {
-    private tokenKey: string = "token";
+    private _tokenKey: string = "token";
 
     hasToken() {
-        return localStorage.getItem(this.tokenKey) != null;
+        return localStorage.getItem(this._tokenKey) != null;
     }
 
     removeToken() {
-        localStorage.removeItem(this.tokenKey);
+        localStorage.removeItem(this._tokenKey);
     }
 
     getToken() {
-        return localStorage.getItem(this.tokenKey);
+        return localStorage.getItem(this._tokenKey);
+    }
+
+    setToken(token: string) {
+        localStorage.setItem(this._tokenKey, token);
     }
 }
