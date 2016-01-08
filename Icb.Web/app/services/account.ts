@@ -9,8 +9,13 @@ export class AccountService {
 
     constructor(private _storage: StorageService, private _api: ApiService) { }
 
-    isLogged = this._storage.hasToken;
-    logoff = this._storage.removeToken;
+    isLogged() {
+        return this._storage.hasToken();
+    }
+
+    logoff() {
+        this._storage.removeToken();
+    }
 
     login(email: string, password: string) {
         return this._api.post("account", "login", { email, password });

@@ -36,12 +36,14 @@ System.register(['angular2/core', 'angular2/router', './login.model', './../../s
                     this._router = _router;
                     this._accountService = _accountService;
                     this._modelService = _modelService;
-                    if (_accountService.isLogged()) {
-                        _router.navigate(['Dashboard']);
-                        return;
-                    }
                     this.model = new login_model_1.LoginModel();
                 }
+                LoginComponent.prototype.ngOnInit = function () {
+                    if (this._accountService.isLogged()) {
+                        this._router.navigate(['Dashboard']);
+                        return;
+                    }
+                };
                 LoginComponent.prototype.onSubmit = function (form) {
                     var _this = this;
                     this.form = form;

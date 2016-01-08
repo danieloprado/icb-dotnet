@@ -24,11 +24,11 @@ import {AccountService} from './services/account';
     { path: '/users', name: 'Users', component: UserComponent }
 ])
 export class AppComponent {
-    constructor(private router: Router, private accountService: AccountService) {
+    constructor(private _router: Router, private _accountService: AccountService) {
         var publicPaths = ["login"];
 
-        router.subscribe((url) => {
-            if (!accountService.isLogged() && publicPaths.indexOf(url) < 0) {
+        _router.subscribe((url) => {
+            if (!_accountService.isLogged() && publicPaths.indexOf(url) < 0) {
                 return;
             }
 
@@ -44,8 +44,13 @@ export class AppComponent {
             $.validator.unobtrusive.parse(form);
         });
 
-        if (!accountService.isLogged()) {
-            router.navigate(['Login']);
+        if (!_accountService.isLogged()) {
+            _router.navigate(['Login']);
         }
+    }
+
+    logoff = function () {
+        this._accountService.logoff();
+        this._router.navigate(['Login']);
     }
 }

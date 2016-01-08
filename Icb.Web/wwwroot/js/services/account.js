@@ -27,9 +27,13 @@ System.register(['angular2/core', './storage', './api'], function(exports_1) {
                     this._storage = _storage;
                     this._api = _api;
                     this.tokenKey = "token";
-                    this.isLogged = this._storage.hasToken;
-                    this.logoff = this._storage.removeToken;
                 }
+                AccountService.prototype.isLogged = function () {
+                    return this._storage.hasToken();
+                };
+                AccountService.prototype.logoff = function () {
+                    this._storage.removeToken();
+                };
                 AccountService.prototype.login = function (email, password) {
                     return this._api.post("account", "login", { email: email, password: password });
                 };

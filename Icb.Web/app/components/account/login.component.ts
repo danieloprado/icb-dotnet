@@ -1,7 +1,6 @@
 ﻿declare var $: any;
 
-import {Component, View} from 'angular2/core';
-import {NgForm}    from 'angular2/common';
+import {Component, View, OnInit} from 'angular2/core';
 import {Router} from 'angular2/router';
 import {Response} from 'angular2/http';
 
@@ -17,7 +16,7 @@ import {APP_DIRECTIVES} from '../../app.directives';
     directives: [APP_DIRECTIVES]
 })
 @Component({})
-export class LoginComponent {
+export class LoginComponent implements OnInit {
     public form: any;
     public errorMessage: string;
     public model: LoginModel;
@@ -27,13 +26,14 @@ export class LoginComponent {
         private _accountService: AccountService,
         private _modelService: ModelValidationService
     ) {
+        this.model = new LoginModel();
+    }
 
-        if (_accountService.isLogged()) {
-            _router.navigate(['Dashboard']);
+    ngOnInit() {
+        if (this._accountService.isLogged()) {
+            this._router.navigate(['Dashboard']);
             return;
         }
-
-        this.model = new LoginModel();
     }
 
     onSubmit(form: any) {

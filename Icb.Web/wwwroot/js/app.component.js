@@ -35,12 +35,16 @@ System.register(['angular2/core', 'angular2/router', './app.directives', './comp
             }],
         execute: function() {
             AppComponent = (function () {
-                function AppComponent(router, accountService) {
-                    this.router = router;
-                    this.accountService = accountService;
+                function AppComponent(_router, _accountService) {
+                    this._router = _router;
+                    this._accountService = _accountService;
+                    this.logoff = function () {
+                        this._accountService.logoff();
+                        this._router.navigate(['Login']);
+                    };
                     var publicPaths = ["login"];
-                    router.subscribe(function (url) {
-                        if (!accountService.isLogged() && publicPaths.indexOf(url) < 0) {
+                    _router.subscribe(function (url) {
+                        if (!_accountService.isLogged() && publicPaths.indexOf(url) < 0) {
                             return;
                         }
                         var form = $("#app-content-body form");
@@ -51,8 +55,8 @@ System.register(['angular2/core', 'angular2/router', './app.directives', './comp
                         form.removeData("unobtrusiveValidation");
                         $.validator.unobtrusive.parse(form);
                     });
-                    if (!accountService.isLogged()) {
-                        router.navigate(['Login']);
+                    if (!_accountService.isLogged()) {
+                        _router.navigate(['Login']);
                     }
                 }
                 AppComponent = __decorate([
